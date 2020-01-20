@@ -5,6 +5,8 @@ const authRouter = require("./auth");
 const apiRouter = require("./routes");
 const cors = require("cors");
 
+const seedDatabase = require('./utilities/seedDatabase');
+
 //initialize sequelize with session store
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const db = require("./database");
@@ -24,7 +26,16 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const syncDb = async () => {
-  await db.sync({ force: true });
+  await db.sync({ force: true })
+  // .then(() => seedDatabase())
+  // .catch(err => {
+  //   if (err.name === 'SequelizeConnectionError') {
+  //     seedDatabase();
+  //   }
+  //   else {
+  //     console.log(err);
+  //   }
+  // });
 }
 
 const configureApp = () => {
