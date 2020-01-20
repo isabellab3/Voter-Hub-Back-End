@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Message } = require("../database/models");
 const { MessageBoard } = require("../database/models");
+const { MessageBoardCollection } = require("../database/models");
 
 router.get("/", (req, res, next) => {
   console.log("connected");
@@ -45,5 +46,28 @@ router.post("/messageboard", async function(req, res, next){
   }
 });
 
+router.get("/messageboardcollection", async (req, res, next) => {
+  try{
+    // console.log(req.query);
+    MessageBoardCollection.findAll()
+    .then(messageBoardCollection => res.json(messageBoardCollection))
+    .catch(err => console.log(err))
+  }
+  catch (err){
+    next(err);
+  }
+});
+
+router.post("/messageboardcollection", async function(req, res, next){
+  try{
+    // console.log(req.query);
+    // console.log(MessageBoard);
+    let messageBoardCollection = await MessageBoardCollection.create(req.query);
+    res.status(201).json (messageBoardCollection);
+  }
+  catch (err){
+    next(err);
+  }
+});
 
 module.exports = router;

@@ -1,17 +1,16 @@
 const db = require("../db");
 const Sequelize = require("sequelize");
 
-const MessageBoard = db.define("messageboard", {
+const MessageBoardCollection = db.define("messageboardcollection", {
     id: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         primaryKey: true
     },
-    subject: {
+    officialName: {
       type: Sequelize.STRING,
       unique: false,
       allowNull: false
     }
 });
 
-module.exports = MessageBoard;
+module.exports = MessageBoardCollection;
