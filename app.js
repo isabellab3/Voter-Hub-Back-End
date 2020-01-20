@@ -26,7 +26,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const syncDb = async () => {
+  // await db.sync()
   await db.sync({ force: true })
+
   // .then(() => seedDatabase())
   // .catch(err => {
   //   if (err.name === 'SequelizeConnectionError') {

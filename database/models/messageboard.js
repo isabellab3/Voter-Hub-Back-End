@@ -10,8 +10,12 @@ const MessageBoard = db.define("messageboard", {
     subject: {
       type: Sequelize.STRING,
       unique: false,
-      allowNull: false
+    },
+    officialId: {
+        type: Sequelize.INTEGER,
+        unique: false,
     }
+
 });
 
 module.exports = MessageBoard;

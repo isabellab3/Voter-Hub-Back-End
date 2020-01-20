@@ -17,7 +17,7 @@ const Message = db.define("message", {
       allowNull: false
     },
     messageBoardID: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
     }    
 });
