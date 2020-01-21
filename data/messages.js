@@ -1,18 +1,20 @@
 const messages = [
     {
         user: "Bob",
-        text: "Hi my name is Bob"
+        text: "Hi my name is Bob. This is the first message."
     },
     {
-        user: "Bob2",
-        text: "Hi my name is Bob"
+        user: "Joe",
+        text: "Hi my name is Joe. This is the second message."
     },
     {
-        user: "Bob3",
-        text: "Hi my name is Bob"
+        user: "Ash",
+        text: "Hi my name is Ash. This is the third message."
     },
     {
-        user: "Bob4",
-        text: "Hi my name is Bob"
+        user: "James",
+        text: "Hi my name is James. This is the fourth message."
     }
 ]
+
+module.exports = messages;

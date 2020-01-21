@@ -6,12 +6,12 @@ const MessageBoardCollection = db.define("messageboardcollection", {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false
+    },
+    officialName: {
+      type: Sequelize.STRING,
+      unique: false,
+      allowNull: false
     }
-    // officialName: {
-    //   type: Sequelize.STRING,
-    //   unique: false,
-    //   allowNull: false
-    // }
 });
 
 module.exports = MessageBoardCollection;

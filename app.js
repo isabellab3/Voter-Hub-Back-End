@@ -29,15 +29,15 @@ const syncDb = async () => {
   // await db.sync()
   await db.sync({ force: true })
 
-  // .then(() => seedDatabase())
-  // .catch(err => {
-  //   if (err.name === 'SequelizeConnectionError') {
-  //     seedDatabase();
-  //   }
-  //   else {
-  //     console.log(err);
-  //   }
-  // });
+  .then(() => seedDatabase())
+  .catch(err => {
+    if (err.name === 'SequelizeConnectionError') {
+      seedDatabase();
+    }
+    else {
+      console.log(err);
+    }
+  });
 }
 
 const configureApp = () => {
