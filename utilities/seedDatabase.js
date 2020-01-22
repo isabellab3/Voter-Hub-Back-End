@@ -6,31 +6,16 @@ const messages = require('../data/messages');
 const messageboards = require('../data/messageboards');
 const messageboardcollection = require('../data/messageboardcollection');
 
-//Populate the Campus table in the database with campus data (with everything except enrollments)
-// const populateCampusesTable = async (campuses) =>{
-//   for(let i = 0; i < campuses.length; i++){
-//     let currentCampus = campuses[i];
-//     let saveCampus = await Campus.create(currentCampus);
-//   }
-// }
-
-// const populateStudentsTable = async (students) => {
-//   for(let i = 0; i < students.length; i++){
-//     let currentStudent = students[i];
-//     //saves currentStudent into the database
-//     let saveStudent = await Student.create(currentStudent);
-    
-//     //creates association between student and campus
-//     let campusId = currentStudent.campus; 
-//     let campusObject = await Campus.findByPk(campusId);
-//     await saveStudent.setCampus(campusObject);
-//   }
-// }
 
 const populateMessagesTable = async (messages) => {
     for(let i = 0; i < messages.length; i++){
-      let currentMessage = messages[i];
-      await Message.create(currentMessage);
+      let message = messages[i];
+      await Message.create(message);
+
+      // //associations
+      // let messageBoardObject = await MessageBoard.findByPk(message.messageBoardID);
+      // // console.log(messageBoardObject.dataValues);
+      // await message.setMessageboard(messageBoardObject);
     }
 }
 
@@ -38,6 +23,11 @@ const populateMessageBoardTable = async (messageboards) => {
     for(let i = 0; i < messageboards.length; i++){
       let currentMessageBoard = messageboards[i];
       await MessageBoard.create(currentMessageBoard);
+
+      // console.log(i, currentMessageBoard.officialId);
+      // let messageBoardCollectionObject = await MessageBoardCollection.findByPk(currentMessageBoard.officialId);
+      // console.log(messageBoardCollectionObject);
+      // await currentMessageBoard.setMessageboardcollection(messageBoardCollectionObject);
     }
 }
 
@@ -48,11 +38,28 @@ const populateMessageBoardCollectionTable = async (messageboardcollection) => {
     }
 }
 
+const setAssociations = async () => {
+    let messages = await Message.findAll();
+    for(let i = 0; i < messages.length; i++){
+      let messageBoardObject = await MessageBoard.findByPk(messages[i].messageBoardID);
+      messages[i].setMessageboard(messageBoardObject);
+    }
+
+    let messageboards = await MessageBoard.findAll();
+    for(let i = 0; i < messageboards.length; i++){
+      let messageBoard = messageboards[i];
+      let messageBoardCollectionObject = await MessageBoardCollection.findByPk(messageBoard.officialId);
+      await messageBoard.setMessageboardcollection(messageBoardCollectionObject);
+  
+    }
+}
+
 const seedDatabase = async () => {
   try {
-    await populateMessagesTable(messages);
-    await populateMessageBoardTable(messageboards);
     await populateMessageBoardCollectionTable(messageboardcollection);
+    await populateMessageBoardTable(messageboards);
+    await populateMessagesTable(messages);
+    await setAssociations();
     console.log("Successfully seeded");
   }
   catch(err){

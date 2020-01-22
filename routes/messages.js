@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/", async function(req, res, next){
   try{
-    let message = await Message.create(req.query);
+    let message = await Message.create(req.body);
 
     //association between message and messageboard
     let messageBoardObject = await MessageBoard.findByPk(message.messageBoardID);
@@ -24,6 +24,7 @@ router.post("/", async function(req, res, next){
     next(err);
   }
 });
+
 
 router.get("/messageboard", async (req, res, next) => {
   try{
@@ -37,6 +38,41 @@ router.get("/messageboard", async (req, res, next) => {
   }
 });
 
+router.get("/messageboard/:officialId", async (req, res, next) => {
+  try{
+    // console.log(req.query);
+    MessageBoard.findAll({ 
+      include:[Message],     
+      where: { officialId: req.params.officialId },
+      // order: '"updatedAt" DESC'    
+      // sort: [updatedAt, descending]
+    })
+    .then(messageBoard => res.json(messageBoard))
+    .catch(err => console.log(err))
+  }
+  catch (err){
+    next(err);
+  }
+});
+
+router.get("/messageboard/thread/:messagesId", async (req, res, next) => {
+  try{
+    // console.log(req.query);
+    MessageBoard.findAll({ 
+      include:[Message],     
+      where: { id: req.params.messagesId },
+      // order: '"updatedAt" DESC'    
+      // sort: [updatedAt, descending]
+    })
+    .then(thread => res.json(thread))
+    .catch(err => console.log(err))
+  }
+  catch (err){
+    next(err);
+  }
+});
+
+
 router.post("/messageboard", async function(req, res, next){
   try{
     // console.log(req.query);
@@ -44,10 +80,8 @@ router.post("/messageboard", async function(req, res, next){
     let messageBoard = await MessageBoard.create(req.query);
 
     // //association between messageboard and messageboardcollection
-    // console.log(messageBoard.officialId);
-    let messageBoardCollectionObject = await MessageBoardCollection.findByPk(messageBoard.officialId);
-    // console.log(messageBoardCollectionObject);
-    await messageBoard.setMessageboardcollection(messageBoardCollectionObject);
+    // let messageBoardCollectionObject = await MessageBoardCollection.findByPk(messageBoard.officialId);
+    // await messageBoard.setMessageboardcollection(messageBoardCollectionObject);
 
     res.status(201).json (messageBoard);
   }
