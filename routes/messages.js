@@ -12,6 +12,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/", async function(req, res, next){
   try{
+    //change query to body later
     let message = await Message.create(req.body);
 
     //association between message and messageboard
@@ -58,7 +59,7 @@ router.get("/messageboard/:officialId", async (req, res, next) => {
 router.get("/messageboard/thread/:messagesId", async (req, res, next) => {
   try{
     // console.log(req.query);
-    MessageBoard.findAll({ 
+    MessageBoard.findOne({ 
       include:[Message],     
       where: { id: req.params.messagesId },
       // order: '"updatedAt" DESC'    
@@ -75,20 +76,28 @@ router.get("/messageboard/thread/:messagesId", async (req, res, next) => {
 
 router.post("/messageboard", async function(req, res, next){
   try{
-    // console.log(req.query);
-    // console.log(MessageBoard);
-    let messageBoard = await MessageBoard.create(req.query);
 
-    // //association between messageboard and messageboardcollection
-    // let messageBoardCollectionObject = await MessageBoardCollection.findByPk(messageBoard.officialId);
-    // await messageBoard.setMessageboardcollection(messageBoardCollectionObject);
 
-    res.status(201).json (messageBoard);
+  const newThread = req.body.threadInfo;
+  const newMessage= req.body.messageInfo;
+
+    //onsole.log(req.body);
+     let T = await MessageBoard.create(newThread);
+     const id = T.id
+
+    // console.log('JHAGSDJHGsjdhgJSHDGJghsdjghJ', T)
+    newMessage["messageBoardID"] = id
+    // console.log(newMessage)
+    const message = await Message.create(newMessage)
+    //let message = await Message.create.create()
+    res.status(201).json (T);
   }
   catch (err){
     next(err);
   }
 });
+
+
 
 router.get("/messageboardcollection", async (req, res, next) => {
   try{
