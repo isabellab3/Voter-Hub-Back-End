@@ -5,4 +5,9 @@ router.get("/", (req, res, next) => {
   res.status(200).json([{id: 1, title: "Where The Red Fern Grows"}, {id: 2, title: "Cracking The Coding Interview"}]);
 });
 
+router.get("/a", (req, res, next) => {
+  console.log("req.user is???", req.user)
+  res.send("hello");
+});
+
 module.exports = router;

@@ -14,6 +14,9 @@ const User = db.define("user", {
       return () => this.getDataValue("password");
     }
   },
+  address: {
+    type: Sequelize.STRING
+  },
   salt: {
     type: Sequelize.STRING,
     get() {
