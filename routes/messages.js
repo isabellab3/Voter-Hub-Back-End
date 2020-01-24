@@ -1,6 +1,5 @@
 const router = require("express").Router()
-const { Message } = require("../database/models")
-const { MessageBoard } = require("../database/models")
+const { MessageBoard, Message, User } = require("../database/models")
 const { MessageBoardCollection } = require("../database/models")
 
 router.get("/", (req, res, next) => {
@@ -8,6 +7,31 @@ router.get("/", (req, res, next) => {
   Message.findAll()
     .then(message => res.json(message))
     .catch(err => console.log(err))
+})
+
+router.get("/user", async (req, res, next) => {
+  try {
+    // console.log("req.user is???", req.user)
+    let user = await User.findAll()
+    res.status(200).json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put("/user/:email", async (req, res, next) => {
+  try {
+    //  UPDATE students SET "col1" = 'val1', "col2" = 'val2' WHERE id = req.params.id
+    console.log(req.params.email)
+    let updatedUser = await User.update(req.body, {
+      where: { email: req.params.email },
+      returning: true,
+      plain: true
+    })
+    res.status(200).json(updatedUser)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.post("/", async function(req, res, next) {
@@ -83,17 +107,17 @@ router.get("/messageboard/thread/:messagesId", async (req, res, next) => {
 
 router.post("/messageboard", async function(req, res, next) {
   try {
-    const newThread = req.body.threadInfo
-    const newMessage = req.body.messageInfo
+    const newThread = req.query.threadInfo
+    const newMessage = req.query.messageInfo
 
-    //onsole.log(req.body);
+    //console.log(req.body);
     let T = await MessageBoard.create(newThread)
     const id = T.id
-
     // console.log('JHAGSDJHGsjdhgJSHDGJghsdjghJ', T)
     newMessage["messageBoardID"] = id
-    // console.log(newMessage)
+    console.log(newMessage, "hello")
     const message = await Message.create(newMessage)
+    //console.log(message)
     //let message = await Message.create.create()
     res.status(201).json(T)
   } catch (err) {
