@@ -1,4 +1,4 @@
-const messageboardcollection = [
+/* const messageboardcollection = [
     {
         id: 1,
         officialName: "Aleeza Drummond"
@@ -17,4 +17,4 @@ const messageboardcollection = [
     }
 ]
 
-module.exports = messageboardcollection;
+module.exports = messageboardcollection; */

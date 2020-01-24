@@ -88,77 +88,7 @@ const messages = [
         user: "Joe",
         text: "Hi my name is Joe. This is the second message.",
         messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the ninth message.",
-        messageBoardID: 2
-    },
-    {
-        user: "Joe",
-        text: "Hi my name is Joe. This is the second message.",
-        messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the third message.",
-        messageBoardID: 2
-    },
-    {
-        user: "Joe",
-        text: "Hi my name is Joe. This is the second message.",
-        messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the third message.",
-        messageBoardID: 2
-    },
-    {
-        user: "Joe",
-        text: "Hi my name is Joe. This is the second message.",
-        messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the third message.",
-        messageBoardID: 2
-    },
-    {
-        user: "Joe",
-        text: "Hi my name is Joe. This is the second message.",
-        messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the third message.",
-        messageBoardID: 2
-    },
-    {
-        user: "Joe",
-        text: "Hi my name is Joe. This is the second message.",
-        messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the third message.",
-        messageBoardID: 2
-    },
-    {
-        user: "Joe",
-        text: "Hi my name is Joe. This is the second message.",
-        messageBoardID: 1
-    },
-    {
-        user: "Ash",
-        text: "Hi my name is Ash. This is the third message.",
-        messageBoardID: 2
-    },
-    {
-        user: "James",
-        text: "Hi my name is James. This is the fourth message.",
-        messageBoardID: 3
     }
 ]
 
-module.exports = messages;
+module.exports = messages; 

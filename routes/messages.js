@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { Message } = require("../database/models");
 const { MessageBoard } = require("../database/models");
-const { MessageBoardCollection } = require("../database/models");
-
+/* const { MessageBoardCollection } = require("../database/models");
+ */
 router.get("/", (req, res, next) => {
   console.log("connected");
   Message.findAll()
@@ -41,9 +41,9 @@ router.get("/messageboard", async (req, res, next) => {
 
 router.get("/messageboard/:officialId", async (req, res, next) => {
   try{
-    // console.log(req.query);
+    console.log('DATA:', req.params.officialId);
     MessageBoard.findAll({ 
-      include:[Message],     
+      /* include:[Message],  */    
       where: { officialId: req.params.officialId },
       // order: '"updatedAt" DESC'    
       // sort: [updatedAt, descending]
@@ -76,16 +76,14 @@ router.get("/messageboard/thread/:messagesId", async (req, res, next) => {
 
 router.post("/messageboard", async function(req, res, next){
   try{
-
+    console.log('akslhdfhasdklfhaslkdfhasldfkjhasdlfhjasdkjlf', req.body)
 
   const newThread = req.body.threadInfo;
   const newMessage= req.body.messageInfo;
 
-    //onsole.log(req.body);
      let T = await MessageBoard.create(newThread);
      const id = T.id
 
-    // console.log('JHAGSDJHGsjdhgJSHDGJghsdjghJ', T)
     newMessage["messageBoardID"] = id
     // console.log(newMessage)
     const message = await Message.create(newMessage)
@@ -98,7 +96,7 @@ router.post("/messageboard", async function(req, res, next){
 });
 
 
-
+/* 
 router.get("/messageboardcollection", async (req, res, next) => {
   try{
     // console.log(req.query);
@@ -109,8 +107,8 @@ router.get("/messageboardcollection", async (req, res, next) => {
   catch (err){
     next(err);
   }
-});
-
+}); */
+/* 
 router.post("/messageboardcollection", async function(req, res, next){
   try{
     // console.log(req.query);
@@ -122,5 +120,5 @@ router.post("/messageboardcollection", async function(req, res, next){
     next(err);
   }
 });
-
+ */
 module.exports = router;

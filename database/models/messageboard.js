@@ -1,6 +1,7 @@
 const db = require("../db");
 const Sequelize = require("sequelize");
 
+
 const MessageBoard = db.define("messageboard", {
     id: {
         type: Sequelize.INTEGER,
@@ -12,7 +13,7 @@ const MessageBoard = db.define("messageboard", {
       unique: false,
     },
     officialId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         unique: false,
     }
 
