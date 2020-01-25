@@ -9,7 +9,6 @@ function cleanup_at_exit {
 
 trap cleanup_at_exit EXIT
 git checkout -b deploy
-cd client
 npm run build
 git add build -f
 git commit --allow-empty -m 'Deploying'
