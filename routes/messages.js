@@ -1,6 +1,6 @@
-const router = require("express").Router()
-const { MessageBoard, Message, User } = require("../database/models")
-const { MessageBoardCollection } = require("../database/models")
+const router = require("express").Router();
+const { Message } = require("../database/models");
+const { MessageBoard } = require("../database/models");
 
 router.get("/", (req, res, next) => {
   console.log("connected")
@@ -74,12 +74,12 @@ router.get("/messageboard", async (req, res, next) => {
 })
 
 router.get("/messageboard/:officialId", async (req, res, next) => {
-  try {
-    // console.log(req.query);
-    MessageBoard.findAll({
-      include: [Message],
-      where: { officialId: req.params.officialId }
-      // order: '"updatedAt" DESC'
+  try{
+    console.log('DATA:', req.params.officialId);
+    MessageBoard.findAll({ 
+      /* include:[Message],  */    
+      where: { officialId: req.params.officialId },
+      // order: '"updatedAt" DESC'    
       // sort: [updatedAt, descending]
     })
       .then(messageBoard => res.json(messageBoard))
@@ -105,15 +105,17 @@ router.get("/messageboard/thread/:messagesId", async (req, res, next) => {
   }
 })
 
-router.post("/messageboard", async function(req, res, next) {
-  try {
-    const newThread = req.query.threadInfo
-    const newMessage = req.query.messageInfo
 
-    //console.log(req.body);
-    let T = await MessageBoard.create(newThread)
-    const id = T.id
-    // console.log('JHAGSDJHGsjdhgJSHDGJghsdjghJ', T)
+router.post("/messageboard", async function(req, res, next){
+  try{
+    console.log('akslhdfhasdklfhaslkdfhasldfkjhasdlfhjasdkjlf', req.body)
+
+  const newThread = req.body.threadInfo;
+  const newMessage= req.body.messageInfo;
+
+     let T = await MessageBoard.create(newThread);
+     const id = T.id
+
     newMessage["messageBoardID"] = id
     console.log(newMessage, "hello")
     const message = await Message.create(newMessage)
@@ -123,8 +125,10 @@ router.post("/messageboard", async function(req, res, next) {
   } catch (err) {
     next(err)
   }
-})
+});
 
+
+/* 
 router.get("/messageboardcollection", async (req, res, next) => {
   try {
     // console.log(req.query);
@@ -134,10 +138,13 @@ router.get("/messageboardcollection", async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-})
-
-router.post("/messageboardcollection", async function(req, res, next) {
-  try {
+  catch (err){
+    next(err);
+  }
+}); */
+/* 
+router.post("/messageboardcollection", async function(req, res, next){
+  try{
     // console.log(req.query);
     // console.log(MessageBoard);
     let messageBoardCollection = await MessageBoardCollection.create(req.query)
@@ -145,6 +152,6 @@ router.post("/messageboardcollection", async function(req, res, next) {
   } catch (err) {
     next(err)
   }
-})
-
-module.exports = router
+});
+ */
+module.exports = router;

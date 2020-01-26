@@ -1,11 +1,11 @@
 const { Message } = require('../database/models');
 const { MessageBoard } = require('../database/models');
-const { MessageBoardCollection } = require('../database/models');
-
+/* const { MessageBoardCollection } = require('../database/models');
+ */
 const messages = require('../data/messages');
 const messageboards = require('../data/messageboards');
-const messageboardcollection = require('../data/messageboardcollection');
-
+/* const messageboardcollection = require('../data/messageboardcollection');
+ */
 
 const populateMessagesTable = async (messages) => {
     for(let i = 0; i < messages.length; i++){
@@ -31,12 +31,12 @@ const populateMessageBoardTable = async (messageboards) => {
     }
 }
 
-const populateMessageBoardCollectionTable = async (messageboardcollection) => {
+/* const populateMessageBoardCollectionTable = async (messageboardcollection) => {
     for(let i = 0; i < messageboardcollection.length; i++){
       let currentMessageBoardCollection = messageboardcollection[i];
       await MessageBoardCollection.create(currentMessageBoardCollection);
     }
-}
+} */
 
 const setAssociations = async () => {
     let messages = await Message.findAll();
@@ -48,16 +48,16 @@ const setAssociations = async () => {
     let messageboards = await MessageBoard.findAll();
     for(let i = 0; i < messageboards.length; i++){
       let messageBoard = messageboards[i];
-      let messageBoardCollectionObject = await MessageBoardCollection.findByPk(messageBoard.officialId);
-      await messageBoard.setMessageboardcollection(messageBoardCollectionObject);
-  
+      /* let messageBoardCollectionObject = await MessageBoardCollection.findByPk(messageBoard.officialId); */
+/*       await messageBoard.setMessageboardcollection(messageBoardCollectionObject);
+ */  
     }
 }
 
 const seedDatabase = async () => {
   try {
-    await populateMessageBoardCollectionTable(messageboardcollection);
-    await populateMessageBoardTable(messageboards);
+/*     await populateMessageBoardCollectionTable(messageboardcollection);
+ */    await populateMessageBoardTable(messageboards);
     await populateMessagesTable(messages);
     await setAssociations();
     console.log("Successfully seeded");

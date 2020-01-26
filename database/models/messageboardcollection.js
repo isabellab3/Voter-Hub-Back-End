@@ -1,5 +1,5 @@
-const db = require("../db")
-const Sequelize = require("sequelize")
+/* const db = require("../db");
+const Sequelize = require("sequelize");
 
 const MessageBoardCollection = db.define("messageboardcollection", {
   id: {
@@ -14,4 +14,4 @@ const MessageBoardCollection = db.define("messageboardcollection", {
   }
 })
 
-module.exports = MessageBoardCollection
+module.exports = MessageBoardCollection; */
